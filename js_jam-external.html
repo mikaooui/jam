@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanrio Dream Clock ✨🎀</title>
+    <style>
+        /* --- CSS STYLE: DEKORASI & ANIMASI --- */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Pacifico&display=swap');
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #fff0f5;
+            background-image: radial-gradient(#ffc0cb 1.2px, transparent 1.2px);
+            background-size: 25px 25px;
+            font-family: 'Fredoka', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Dekorasi Awan Melayang (Tema Cinnamoroll) */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.8;
+            z-index: 1;
+            animation: floatClouds linear infinite;
+        }
+        .cloud::after, .cloud::before {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+        }
+        .cloud::after { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud::before { width: 40px; height: 40px; top: -15px; left: 55px; }
+
+        .cloud-1 { width: 120px; height: 40px; top: 10%; animation-duration: 25s; }
+        .cloud-2 { width: 100px; height: 35px; top: 40%; animation-duration: 20s; animation-delay: -5s; }
+        .cloud-3 { width: 140px; height: 45px; top: 75%; animation-duration: 30s; animation-delay: -10s; }
+
+        /* Wadah Utama (Sanrio Card) */
+        .sanrio-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3.5rem 2.5rem;
+            border-radius: 60px;
+            border: 8px solid #ffb6c1;
+            box-shadow: 0 15px 0px #ffb6c1, 0 25px 50px rgba(255, 105, 180, 0.3);
+            text-align: center;
+            z-index: 10;
+            min-width: 360px;
+        }
+
+        /* Pita Hello Kitty 🎀 */
+        .ribbon-deco {
+            position: absolute;
+            top: -25px;
+            right: -25px;
+            font-size: 4.5rem;
+            filter: drop-shadow(4px 4px 0 #ff69b4);
+            transform: rotate(15deg);
+            z-index: 12;
+            animation: heartbeat 2s infinite;
+        }
+
+        /* Telinga My Melody */
+        .ears-container {
+            position: absolute;
+            top: -75px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            z-index: -1;
+        }
+        .ear {
+            width: 65px;
+            height: 110px;
+            background: #ffb6c1;
+            border: 7px solid #ff8da1;
+            border-radius: 50% 50% 10% 10%;
+        }
+        .left-ear { transform: rotate(-20deg); border-bottom-left-radius: 50%; }
+        .right-ear { transform: rotate(20deg); border-bottom-right-radius: 50%; }
+
+        /* Teks Tanggal */
+        #tgl-masehi {
+            font-size: 1.2rem;
+            color: #ff69b4;
+            margin-bottom: 5px;
+            font-weight: 600;
+            text-shadow: 1px 1px 0 #fff;
+        }
+
+        /* Tampilan Jam */
+        #jam-display {
+            font-family: 'Pacifico', cursive;
+            font-size: 5rem;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .angka-jam {
+            background: linear-gradient(to bottom, #ff85a2, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 0px #ffffff);
+        }
+
+        /* Titik Dua Pemisah */
+        .pemisah {
+            color: #ffb6c1;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 4rem;
+            margin: 0 8px;
+            filter: drop-shadow(2px 2px 0px #ffffff);
+        }
+
+        /* Kalender Jawa */
+        #tgl-jawa {
+            background: #fff0f5;
+            color: #db7093;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            border: 3px dashed #ffb6c1;
+            margin-top: 15px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* Animasi */
+        @keyframes floatClouds {
+            from { transform: translateX(-200px); }
+            to { transform: translateX(110vw); }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1) rotate(15deg); }
+            50% { transform: scale(1.1) rotate(15deg); }
+        }
+        .kedip { animation: blink 1.5s step-start infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 1.5rem;
+            color: #db7093;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+
+    <div class="sanrio-card">
+        <div class="ears-container">
+            <div class="ear left-ear"></div>
+            <div class="ear right-ear"></div>
+        </div>
+        <div class="ribbon-deco">🎀</div>
+
+        <div id="tgl-masehi">Memuat...</div>
+        
+        <div id="jam-display">
+            <span id="h" class="angka-jam">00</span>
+            <span class="pemisah kedip">:</span>
+            <span id="m" class="angka-jam">00</span>
+            <span class="pemisah kedip">:</span>
+            <span id="s" class="angka-jam">00</span>
+        </div>
+
+        <div id="tgl-jawa">Memuat Kalender Jawa...</div>
+
+        <div class="footer">
+            🍓 🍰 (｡♥‿♥｡) 🍰 🍓
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const sekarang = new Date();
+
+            // Jam, Menit, Detik
+            document.getElementById('h').innerText = sekarang.getHours().toString().padStart(2, '0');
+            document.getElementById('m').innerText = sekarang.getMinutes().toString().padStart(2, '0');
+            document.getElementById('s').innerText = sekarang.getSeconds().toString().padStart(2, '0');
+
+            // Tanggal Masehi
+            const opsi = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById('tgl-masehi').innerText = sekarang.toLocaleDateString('id-ID', opsi);
+
+            // Kalender Jawa (Logika Pasaran)
+            const pasaran = ["Wage", "Kliwon", "Legi", "Pahing", "Pon"];
+            const bulanJawa = ["Sura", "Sapar", "Mulud", "Bakda Mulud", "Jumadil Awal", "Jumadil Akhir", "Rajab", "Ruwah", "Pasa", "Sawal", "Sela", "Besar"];
+            
+            // Perhitungan Hari Pasaran
+            const milidetikPerHari = 24 * 60 * 60 * 1000;
+            const selisihHari = Math.floor((sekarang.getTime() - sekarang.getTimezoneOffset() * 60000) / milidetikPerHari);
+            
+            let p = pasaran[selisihHari % 5];
+            let tglJ = (selisihHari + 22) % 30 || 30; 
+            let blnJ = bulanJawa[Math.floor((selisihHari / 29.5) + 9) % 12];
+            let thnJ = Math.floor((selisihHari / 354) + 1899);
+
+            document.getElementById('tgl-jawa').innerText = `✨ ${p}, ${tglJ} ${blnJ} ${thnJ} ✨`;
+        }
+
+        // Jalankan setiap detik
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
